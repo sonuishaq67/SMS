@@ -1,41 +1,63 @@
-import 'dart:convert';
-import 'Student.dart';
-import 'package:flutter/foundation.dart';
+import 'package:StudentProject/pages/optionPages/branchHome.dart';
+import 'package:StudentProject/pages/optionPages/collegeInfoHome.dart';
+import 'package:StudentProject/pages/optionPages/examHome.dart';
+import 'package:StudentProject/pages/optionPages/studentHome.dart';
+import 'package:StudentProject/pages/optionPages/subjectHome.dart';
+import 'package:StudentProject/pages/queryPages/delete/branchDelete.dart';
+import 'package:StudentProject/pages/queryPages/delete/examDelete.dart';
+import 'package:StudentProject/pages/queryPages/delete/studentDelete.dart';
+import 'package:StudentProject/pages/queryPages/delete/subjectDelete.dart';
+import 'package:StudentProject/pages/queryPages/getByQuery/getExamsById.dart';
+import 'package:StudentProject/pages/queryPages/getByQuery/getStudentById.dart';
+import 'package:StudentProject/pages/queryPages/insert/branchInsert.dart';
+import 'package:StudentProject/pages/queryPages/insert/examInsert.dart';
+import 'package:StudentProject/pages/queryPages/insert/studentInsert.dart';
+import 'package:StudentProject/pages/queryPages/insert/subjectInsert.dart';
+import 'package:StudentProject/pages/queryPages/update/branchUpdate.dart';
+import 'package:StudentProject/pages/queryPages/update/examUpdate.dart';
+import 'package:StudentProject/pages/queryPages/update/studentUpdate.dart';
+import 'package:StudentProject/pages/queryPages/update/subjectUpdate.dart';
+import 'package:StudentProject/pages/resultPages/getAllExams.dart';
+import 'package:StudentProject/pages/resultPages/getAllStudent.dart';
+import 'package:StudentProject/pages/resultPages/getAllBranch.dart';
+import 'package:StudentProject/pages/resultPages/getAllSubject.dart';
+import 'package:StudentProject/pages/resultPages/result_ExamsbyId.dart';
+import 'package:StudentProject/pages/resultPages/result_StudentbyId.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'pages/home.dart';
+import 'pages/loading.dart';
 
-void main() async {
-  var client = new http.Client();
-  final res = await client.get('http://192.168.0.107:8080/getAllStudents');
-  final parsed = json.decode(res.body).cast<Map<String, dynamic>>();
-  var temp = parsed.map<Student>((json) => Student.fromJson(json)).toList();
-  runApp(MyApp(items: temp));
-}
-
-class MyApp extends StatelessWidget {
-  final List<Student> items;
-
-  MyApp({Key key, @required this.items}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final title = 'Long List new ';
-
-    return MaterialApp(
-      title: title,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text('${items[index].Name}'),
-            );
-          },
-        ),
-      ),
-    );
-  }
+void main() {
+  runApp(MaterialApp(
+    initialRoute: '/',
+    routes: {
+      '/': (context) => Loading(),
+      '/home': (context) => Home(),
+      '/studentHome': (context) => studentHome(),
+      '/branchHome': (context) => branchHome(),
+      '/subjectHome': (context) => subjectHome(),
+      '/examHome': (context) => examHome(),
+      '/collegeInfoHome': (context) => collegeInfo(),
+      '/getAllstudents': (context) => getAllStudent(),
+      '/getAllBranch': (context) => getAllBranch(),
+      '/getAllsubjects': (context) => getAllSubject(),
+      '/getAllExams': (context) => getAllExams(),
+      '/insertExam': (context) => examInsert(),
+      '/insertBranch': (context) => branchInsert(),
+      '/insertSubject': (context) => subjectInsert(),
+      '/studentInsert': (context) => studentInsert(),
+      '/updateExam': (context) => examUpdate(),
+      '/updateStudent': (context) => studentUpdate(),
+      '/updateBranch': (context) => branchUpdate(),
+      '/updateSubject': (context) => subjectUpdate(),
+      '/deleteSubject': (context) => subjectDelete(),
+      '/deleteBranch': (context) => branchDelete(),
+      '/deleteExam': (context) => examDelete(),
+      '/deleteStudent': (context) => studentDelete(),
+      '/getStudentById': (context) => getStudentById(),
+      '/getExamsById': (context) => getExamsById(),
+      '/showStudentdata': (context) => showStudent(),
+      '/showExamdata': (context) => showExams(),
+    },
+  ));
 }
