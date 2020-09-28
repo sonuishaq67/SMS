@@ -16,12 +16,15 @@ Change the server ip's from 34.\*.\*.\* to localhost
 
 
 for android 
+
 ```flutter build apk```
 
 for linux 
+
 ```flutter build linux```
 
 for web 
+
 ```flutter build web```
 
 
